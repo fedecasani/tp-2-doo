@@ -58,7 +58,7 @@ public class PrincipalController extends Controller implements Initializable {
     
     @FXML
     private void opcAcercaDe() {
-        showAlert(Alert.AlertType.INFORMATION, null, "Info", "Otra alucinada de agusrafafer!");
+        showAlert(Alert.AlertType.INFORMATION, null, "Info", "Otra alucinada de Casani y Chiavarino!");
     }
 
 }
