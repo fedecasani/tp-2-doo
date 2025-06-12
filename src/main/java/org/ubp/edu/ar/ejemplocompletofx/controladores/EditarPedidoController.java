@@ -17,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import net.synedra.validatorfx.Validator;
 import org.ubp.edu.ar.ejemplocompletofx.modelo.*;
+import org.ubp.edu.ar.ejemplocompletofx.util.GeneradorComprobanteDB;
+import org.ubp.edu.ar.ejemplocompletofx.util.GeneradorComprobanteTxt;
 
 public class EditarPedidoController extends Controller implements Initializable {
 
@@ -31,6 +33,8 @@ public class EditarPedidoController extends Controller implements Initializable 
     @FXML private TextField txtCantidad;
     @FXML private TextField txtTotal;
     @FXML private TextField txtTotalConRecargo;
+    @FXML private TextField txtPagoCliente;
+    @FXML private TextField txtVuelto;
     @FXML private Button btnGuardar;
     @FXML private Button btnAgregarItem;
     @FXML private Button btnQuitarItem;
@@ -56,6 +60,9 @@ public class EditarPedidoController extends Controller implements Initializable 
 
         cmbMedioPago.setItems(FXCollections.observableArrayList(MedioPago.values()));
         cmbMedioPago.getSelectionModel().select(MedioPago.CONTADO);
+
+        txtPagoCliente.setDisable(true);
+        txtVuelto.setDisable(true);
 
         this.txtPrecio.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d+\\.\\d+")) {
@@ -102,6 +109,23 @@ public class EditarPedidoController extends Controller implements Initializable 
         }
     }
 
+    @FXML
+    private void actualizarVuelto() {
+        if (cmbMedioPago.getSelectionModel().getSelectedItem() == MedioPago.CONTADO) {
+            try {
+                float pago = Float.parseFloat(txtPagoCliente.getText());
+                float totalConRecargo = pedido.calcularTotalConRecargo();
+                float vuelto = pago - totalConRecargo;
+                txtVuelto.setText(String.format("%.2f", Math.max(vuelto, 0)));
+            } catch (NumberFormatException e) {
+                txtVuelto.setText("0.00");
+            }
+        } else {
+            txtPagoCliente.setText("");
+            txtVuelto.setText("");
+        }
+    }
+
     @Override
     public void loadData() {
         this.progress.setVisible(true);
@@ -140,6 +164,28 @@ public class EditarPedidoController extends Controller implements Initializable 
         this.tableView.setItems(this.datos);
         this.cmbMedioPago.getSelectionModel().select(pedido.getMedioPago() != null ? pedido.getMedioPago() : MedioPago.CONTADO);
         actualizarTotalConRecargo();
+    }
+
+    @FXML
+    private void alCambiarMedioPago(ActionEvent event) {
+        MedioPago seleccionado = cmbMedioPago.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            pedido.setMedioPago(seleccionado);
+            actualizarTotalConRecargo();
+            boolean esContado = seleccionado == MedioPago.CONTADO;
+            txtPagoCliente.setDisable(!esContado);
+            txtVuelto.setDisable(!esContado);
+            if (!esContado) {
+                txtPagoCliente.setText("");
+                txtVuelto.setText("");
+            }
+        }
+    }
+
+    private void actualizarTotalConRecargo() {
+        this.txtTotal.setText(String.format("%.2f", pedido.calcularTotalDetalle()));
+        this.txtTotalConRecargo.setText(String.format("%.2f", pedido.calcularTotalConRecargo()));
+        actualizarVuelto();
     }
 
     @FXML
@@ -202,6 +248,8 @@ public class EditarPedidoController extends Controller implements Initializable 
             this.otherCtrl.loadData();
             showAlert(Alert.AlertType.INFORMATION, null, "Info", "Pedido guardado con exito");
             this.btnCerrarEditarPedido.fire();
+            GeneradorComprobanteTxt.guardar(pedido);
+            GeneradorComprobanteDB.guardar(pedido);
         } else {
             showAlert(Alert.AlertType.ERROR, null, "Info", "El Pedido no pudo ser guardado");
         }
@@ -216,20 +264,6 @@ public class EditarPedidoController extends Controller implements Initializable 
             this.txtCantidad.setText("1.0");
             this.txtPrecio.setText(String.valueOf(prod.getPrecio()));
         }
-    }
-
-    @FXML
-    private void alCambiarMedioPago(ActionEvent event) {
-        MedioPago seleccionado = cmbMedioPago.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            pedido.setMedioPago(seleccionado);
-            actualizarTotalConRecargo();
-        }
-    }
-
-    private void actualizarTotalConRecargo() {
-        this.txtTotal.setText(String.format("%.2f", pedido.calcularTotalDetalle()));
-        this.txtTotalConRecargo.setText(String.format("%.2f", pedido.calcularTotalConRecargo()));
     }
 
     @FXML

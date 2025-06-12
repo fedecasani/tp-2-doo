@@ -6,8 +6,10 @@ org/ubp/edu/ar/ejemplocompletofx/controladores/PedidosController.class
 org/ubp/edu/ar/ejemplocompletofx/dto/DetallePedidoDto.class
 org/ubp/edu/ar/ejemplocompletofx/App.class
 RecargoStrategy/java.class
+org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteDB.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/DetallePedido.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Pedido$1.class
+org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteTxt.class
 org/ubp/edu/ar/ejemplocompletofx/dao/PedidoDao.class
 org/ubp/edu/ar/ejemplocompletofx/dao/Dao.class
 org/ubp/edu/ar/ejemplocompletofx/dao/ConexionSql.class

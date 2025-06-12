@@ -181,6 +181,19 @@ CREATE TABLE `vendedor` (
 -- Dumping data for table `vendedor`
 --
 
+CREATE TABLE comprobante (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nro_pedido INT,
+  fecha DATETIME,
+  cliente TEXT,
+  vendedor TEXT,
+  medio_pago VARCHAR(20),
+  detalle TEXT,
+  total DECIMAL(10,2),
+  total_con_recargo DECIMAL(10,2)
+);
+
+
 LOCK TABLES `vendedor` WRITE;
 /*!40000 ALTER TABLE `vendedor` DISABLE KEYS */;
 INSERT INTO `vendedor` VALUES (1,'JORGE','GOMEZ','2023-01'),(2,'JUANA','MASLIA','2021-05');

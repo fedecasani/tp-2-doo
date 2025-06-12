@@ -4,8 +4,10 @@
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/Producto.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dao/VendedorDao.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/controladores/PrincipalController.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteDB.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dto/VendedorDto.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/factories/FabricaDao.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteTxt.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/DetallePedido.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/controladores/Controller.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/App.java
