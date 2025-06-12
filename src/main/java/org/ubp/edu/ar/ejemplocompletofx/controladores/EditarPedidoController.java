@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package org.ubp.edu.ar.ejemplocompletofx.controladores;
 
 import java.net.URL;
@@ -16,83 +12,57 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import net.synedra.validatorfx.Validator;
-import org.ubp.edu.ar.ejemplocompletofx.modelo.Cliente;
-import org.ubp.edu.ar.ejemplocompletofx.modelo.DetallePedido;
-import org.ubp.edu.ar.ejemplocompletofx.modelo.Pedido;
-import org.ubp.edu.ar.ejemplocompletofx.modelo.Producto;
-import org.ubp.edu.ar.ejemplocompletofx.modelo.Vendedor;
+import org.ubp.edu.ar.ejemplocompletofx.modelo.*;
 
-/**
- * FXML Controller class
- *
- * @author agustin
- */
 public class EditarPedidoController extends Controller implements Initializable {
 
     private Vendedor vendedor;
     private Cliente cliente;
     private Producto producto;
     private Pedido pedido;
-    @FXML
-    private TextField txtNro;
-    @FXML
-    private DatePicker txtFecha;
-    @FXML
-    private TextField txtPrecio;
-    @FXML
-    private TextField txtCantidad;
-    @FXML
-    private TextField txtTotal;
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnAgregarItem;
-    @FXML
-    private Button btnQuitarItem;
-    @FXML
-    private Button btnCerrarEditarPedido;
-    @FXML
-    private TableView<DetallePedido> tableView;
+
+    @FXML private TextField txtNro;
+    @FXML private DatePicker txtFecha;
+    @FXML private TextField txtPrecio;
+    @FXML private TextField txtCantidad;
+    @FXML private TextField txtTotal;
+    @FXML private TextField txtTotalConRecargo;
+    @FXML private Button btnGuardar;
+    @FXML private Button btnAgregarItem;
+    @FXML private Button btnQuitarItem;
+    @FXML private Button btnCerrarEditarPedido;
+    @FXML private TableView<DetallePedido> tableView;
+    @FXML private ComboBox<Cliente> cmbCliente;
+    @FXML private ComboBox<Vendedor> cmbVendedor;
+    @FXML private ComboBox<Producto> cmbProducto;
+    @FXML private ComboBox<MedioPago> cmbMedioPago;
+
     private ObservableList<DetallePedido> datos = null;
-    @FXML
-    private ComboBox<Cliente> cmbCliente;
     private ObservableList<Cliente> datosCmbCliente = null;
-    @FXML
-    private ComboBox<Vendedor> cmbVendedor;
     private ObservableList<Vendedor> datosCmbVendedor = null;
-    @FXML
-    private ComboBox<Producto> cmbProducto;
     private ObservableList<Producto> datosCmbProducto = null;
     private Controller otherCtrl;
     private Validator validador;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
         vendedor = new Vendedor();
         producto = new Producto();
+
+        cmbMedioPago.setItems(FXCollections.observableArrayList(MedioPago.values()));
+        cmbMedioPago.getSelectionModel().select(MedioPago.CONTADO);
+
         this.txtPrecio.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d+\\.\\d+")) {
                 txtPrecio.setText(newValue.replaceAll("[^\\d+\\.\\d+]", ""));
             }
         });
-        //https://github.com/effad/ValidatorFX
+
         this.validador = new Validator();
         this.validador.createCheck()
                 .dependsOn("precioVta", this.txtPrecio.textProperty())
@@ -104,11 +74,13 @@ public class EditarPedidoController extends Controller implements Initializable 
                 })
                 .decorates(this.txtPrecio)
                 .immediate();
+
         this.txtCantidad.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d+\\.\\d+")) {
                 txtCantidad.setText(newValue.replaceAll("[^\\d+\\.\\d+]", ""));
             }
         });
+
         this.validador.createCheck()
                 .dependsOn("cantidad", this.txtCantidad.textProperty())
                 .withMethod(context -> {
@@ -119,6 +91,7 @@ public class EditarPedidoController extends Controller implements Initializable 
                 })
                 .decorates(this.txtCantidad)
                 .immediate();
+
         if (this.tableView != null) {
             this.configureTable();
             this.loadData();
@@ -146,9 +119,7 @@ public class EditarPedidoController extends Controller implements Initializable 
 
     private void configureTable() {
         TableColumn<DetallePedido, String> tcProd = (TableColumn<DetallePedido, String>) this.tableView.getColumns().get(0);
-        tcProd.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(cellData.getValue().getProducto().toString());
-        });
+        tcProd.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProducto().toString()));
         TableColumn<DetallePedido, Float> tcCant = (TableColumn<DetallePedido, Float>) this.tableView.getColumns().get(1);
         tcCant.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         TableColumn<DetallePedido, Float> tcPrecVta = (TableColumn<DetallePedido, Float>) this.tableView.getColumns().get(2);
@@ -167,12 +138,8 @@ public class EditarPedidoController extends Controller implements Initializable 
         this.pedido.buscarDetalles();
         this.datos = FXCollections.observableList(this.pedido.getDetalles());
         this.tableView.setItems(this.datos);
-        this.btnGuardar.setDisable(false);
-        if (this.datos.isEmpty()) {
-            this.btnGuardar.setDisable(true);
-        }
-        float total = this.pedido.calcularTotalDetalle();
-        this.txtTotal.setText(String.valueOf(total));
+        this.cmbMedioPago.getSelectionModel().select(pedido.getMedioPago() != null ? pedido.getMedioPago() : MedioPago.CONTADO);
+        actualizarTotalConRecargo();
     }
 
     @FXML
@@ -182,28 +149,22 @@ public class EditarPedidoController extends Controller implements Initializable 
             return;
         }
         Producto prod = this.cmbProducto.getSelectionModel().getSelectedItem();
-        if (prod != null) {
-            String cantStr = this.txtCantidad.getText();
-            String precStr = this.txtPrecio.getText();
-            float cant = Float.parseFloat(cantStr);
-            float prec = Float.parseFloat(precStr);
-            if (this.pedido.agregarItemDetallePedido(prod, cant, prec)) {
-                this.datos = FXCollections.observableList(this.pedido.getDetalles());
-                this.tableView.setItems(this.datos);
-                float total = this.pedido.calcularTotalDetalle();
-                this.txtTotal.setText(String.valueOf(total));
-            } else {
-                showAlert(Alert.AlertType.WARNING, null, "Info", "Ese producto ya esta en el detalle");
-            }
-            this.txtCantidad.setText("");
-            this.txtPrecio.setText("");
-            this.cmbProducto.setValue(null);
-            this.tableView.getSelectionModel().clearSelection();
+        String cantStr = this.txtCantidad.getText();
+        String precStr = this.txtPrecio.getText();
+        float cant = Float.parseFloat(cantStr);
+        float prec = Float.parseFloat(precStr);
+        if (this.pedido.agregarItemDetallePedido(prod, cant, prec)) {
+            this.datos = FXCollections.observableList(this.pedido.getDetalles());
+            this.tableView.setItems(this.datos);
+        } else {
+            showAlert(Alert.AlertType.WARNING, null, "Info", "Ese producto ya esta en el detalle");
         }
-        this.btnGuardar.setDisable(false);
-        if (this.tableView.getItems().isEmpty()) {
-            this.btnGuardar.setDisable(true);
-        }
+        this.txtCantidad.setText("");
+        this.txtPrecio.setText("");
+        this.cmbProducto.setValue(null);
+        this.tableView.getSelectionModel().clearSelection();
+        this.btnGuardar.setDisable(this.tableView.getItems().isEmpty());
+        actualizarTotalConRecargo();
     }
 
     @FXML
@@ -211,24 +172,18 @@ public class EditarPedidoController extends Controller implements Initializable 
         DetallePedido det = this.tableView.getSelectionModel().getSelectedItem();
         if (det != null) {
             this.tableView.getItems().remove(det);
-            float total = this.pedido.calcularTotalDetalle();
-            this.txtTotal.setText(String.valueOf(total));
             this.tableView.getSelectionModel().clearSelection();
         }
         this.txtCantidad.setText("");
         this.txtPrecio.setText("");
         this.cmbProducto.setValue(null);
-        this.btnGuardar.setDisable(false);
-        if (this.tableView.getItems().isEmpty()) {
-            this.btnGuardar.setDisable(true);
-        }
+        this.btnGuardar.setDisable(this.tableView.getItems().isEmpty());
+        actualizarTotalConRecargo();
     }
 
     @FXML
     private void guardarPedido() {
-        if (this.txtFecha.getValue() == null
-                || this.cmbCliente.getSelectionModel().getSelectedItem() == null
-                || this.cmbVendedor.getSelectionModel().getSelectedItem() == null) {
+        if (this.txtFecha.getValue() == null || this.cmbCliente.getSelectionModel().getSelectedItem() == null || this.cmbVendedor.getSelectionModel().getSelectedItem() == null) {
             showAlert(Alert.AlertType.WARNING, null, "Info", "Debe seleccionar una fecha, un cliente y un vendedor");
             return;
         }
@@ -241,11 +196,8 @@ public class EditarPedidoController extends Controller implements Initializable 
         this.pedido.setVendedor(this.cmbVendedor.getSelectionModel().getSelectedItem());
         this.pedido.setDetalles(this.datos);
         this.pedido.setFecha(Date.from(this.txtFecha.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        if (this.pedido.getNro() > -1) {
-            resp = this.pedido.modificar();
-        } else {
-            resp = this.pedido.guardar();
-        }
+        this.pedido.setMedioPago(this.cmbMedioPago.getSelectionModel().getSelectedItem());
+        resp = this.pedido.getNro() > -1 ? this.pedido.modificar() : this.pedido.guardar();
         if (resp) {
             this.otherCtrl.loadData();
             showAlert(Alert.AlertType.INFORMATION, null, "Info", "Pedido guardado con exito");
@@ -265,17 +217,30 @@ public class EditarPedidoController extends Controller implements Initializable 
             this.txtPrecio.setText(String.valueOf(prod.getPrecio()));
         }
     }
-    
+
+    @FXML
+    private void alCambiarMedioPago(ActionEvent event) {
+        MedioPago seleccionado = cmbMedioPago.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            pedido.setMedioPago(seleccionado);
+            actualizarTotalConRecargo();
+        }
+    }
+
+    private void actualizarTotalConRecargo() {
+        this.txtTotal.setText(String.format("%.2f", pedido.calcularTotalDetalle()));
+        this.txtTotalConRecargo.setText(String.format("%.2f", pedido.calcularTotalConRecargo()));
+    }
+
     @FXML
     private void obtenerDetallePedidoSeleccionado(MouseEvent evt) {
         if (evt.getClickCount() == 1) {
             DetallePedido det = this.tableView.getSelectionModel().getSelectedItem();
-            if(det != null) {
+            if (det != null) {
                 this.cmbProducto.setValue(det.getProducto());
                 this.txtCantidad.setText(String.valueOf(det.getCantidad()));
                 this.txtPrecio.setText(String.valueOf(det.getPrecioVta()));
             }
         }
     }
-
 }

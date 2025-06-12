@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.ubp.edu.ar.ejemplocompletofx.modelo;
 
 import java.util.ArrayList;
@@ -9,73 +5,17 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.ubp.edu.ar.ejemplocompletofx.dao.Dao;
 import org.ubp.edu.ar.ejemplocompletofx.dao.PedidoDao;
 import org.ubp.edu.ar.ejemplocompletofx.dto.PedidoDto;
 import org.ubp.edu.ar.ejemplocompletofx.factories.FabricaDao;
+import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoStrategy;
+import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoCredito;
+import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoSinRecargo;
 
-/**
- *
- * @author agustin
- */
 public class Pedido extends Modelo {
-
-    public int getNro() {
-        return nro;
-    }
-
-    public void setNro(int nro) {
-        this.nro = nro;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Vendedor getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public List<DetallePedido> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<DetallePedido> detalles) {
-        this.detalles = detalles;
-    }
-
-    public ModelMapper getMapper() {
-        return mapper;
-    }
-
-    public void setMapper(ModelMapper mapper) {
-        this.mapper = mapper;
-    }
-
-    public Dao getDao() {
-        return dao;
-    }
-
-    public void setDao(Dao dao) {
-        this.dao = dao;
-    }
 
     private int nro;
     private Date fecha;
@@ -83,6 +23,9 @@ public class Pedido extends Modelo {
     private Vendedor vendedor;
     private List<DetallePedido> detalles = new ArrayList<>();
     private ModelMapper mapper = new ModelMapper();
+
+    private RecargoStrategy estrategiaRecargo = new RecargoSinRecargo(); // default
+    private MedioPago medioPago;
 
     public Pedido() {
         this.dao = FabricaDao.fabricar("PedidoDao");
@@ -97,16 +40,55 @@ public class Pedido extends Modelo {
         detalles = new ArrayList<>();
     }
 
+    public int getNro() { return nro; }
+    public void setNro(int nro) { this.nro = nro; }
+
+    public Date getFecha() { return fecha; }
+    public void setFecha(Date fecha) { this.fecha = fecha; }
+
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+
+    public Vendedor getVendedor() { return vendedor; }
+    public void setVendedor(Vendedor vendedor) { this.vendedor = vendedor; }
+
+    public List<DetallePedido> getDetalles() { return detalles; }
+    public void setDetalles(List<DetallePedido> detalles) { this.detalles = detalles; }
+
+    public ModelMapper getMapper() { return mapper; }
+    public void setMapper(ModelMapper mapper) { this.mapper = mapper; }
+
+    public Dao getDao() { return dao; }
+    public void setDao(Dao dao) { this.dao = dao; }
+
+    public void setMedioPago(MedioPago medioPago) {
+        this.medioPago = medioPago;
+        switch (medioPago) {
+            case CREDITO -> this.estrategiaRecargo = new RecargoCredito();
+            default -> this.estrategiaRecargo = new RecargoSinRecargo();
+        }
+    }
+
+    public MedioPago getMedioPago() {
+        return this.medioPago;
+    }
+
+    public float calcularRecargo() {
+        return this.estrategiaRecargo.calcularRecargo(this.calcularTotalDetalle());
+    }
+
+    public float calcularTotalConRecargo() {
+        return this.calcularTotalDetalle() + this.calcularRecargo();
+    }
+
     public List<Pedido> listarTodos() {
         List<PedidoDto> pedidosDto = this.dao.listarTodos();
-        List<Pedido> pedidos = Arrays.asList(this.mapper.map(pedidosDto, Pedido[].class));
-        return pedidos;
+        return Arrays.asList(this.mapper.map(pedidosDto, Pedido[].class));
     }
 
     public List<Pedido> listarPorNro(int nro) {
         List<PedidoDto> pedidosDto = this.dao.listarPorCriterio(new PedidoDto(nro));
-        List<Pedido> pedidos = Arrays.asList(this.mapper.map(pedidosDto, Pedido[].class));
-        return pedidos;
+        return Arrays.asList(this.mapper.map(pedidosDto, Pedido[].class));
     }
 
     public void buscarDetalles() {
@@ -125,7 +107,6 @@ public class Pedido extends Modelo {
         Optional<DetallePedido> detOpt = this.detalles
                 .stream()
                 .filter(x -> x.getProducto().getCodBarra().equals(prod.getCodBarra())).findFirst();
-        //Si no esta presente en la lista entonces agrego el detalle
         if (!detOpt.isPresent()) {
             this.detalles.add(det);
             return true;
@@ -154,5 +135,4 @@ public class Pedido extends Modelo {
         PedidoDto pedidoDto = this.mapper.map(this, PedidoDto.class);
         return this.dao.borrar(pedidoDto);
     }
-
 }
