@@ -23,6 +23,12 @@
                 <Label text="Vendedor:" />
                 <ComboBox fx:id="cmbVendedor" prefWidth="250.0" />
             </HBox>
+            
+            <HBox spacing="10.0">
+    <Label text="Estado:" />
+    <ComboBox fx:id="cmbEstado" prefWidth="200.0" />
+</HBox>
+
 
             <Separator />
 

@@ -21,4 +21,9 @@ public class EstadoCancelado implements EstadoPedido {
     public String getNombre() {
         return "Cancelado";
     }
+    
+    @Override
+    public String toString() {
+        return getNombre();
+    }
 }

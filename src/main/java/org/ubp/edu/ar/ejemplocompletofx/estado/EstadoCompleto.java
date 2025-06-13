@@ -21,4 +21,9 @@ public class EstadoCompleto implements EstadoPedido {
     public String getNombre() {
         return "Completado";
     }
+    
+    @Override
+    public String toString() {
+        return getNombre();
+    }
 }

@@ -21,4 +21,9 @@ public class EstadoNuevo implements EstadoPedido {
     public String getNombre() {
         return "Nuevo";
     }
+    
+    @Override
+    public String toString() {
+        return getNombre();
+    }
 }

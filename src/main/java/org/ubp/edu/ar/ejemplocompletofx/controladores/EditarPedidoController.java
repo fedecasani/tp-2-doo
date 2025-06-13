@@ -16,6 +16,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import net.synedra.validatorfx.Validator;
+import org.ubp.edu.ar.ejemplocompletofx.estado.EstadoCancelado;
+import org.ubp.edu.ar.ejemplocompletofx.estado.EstadoCompleto;
+import org.ubp.edu.ar.ejemplocompletofx.estado.EstadoNuevo;
+import org.ubp.edu.ar.ejemplocompletofx.estado.EstadoPedido;
 import org.ubp.edu.ar.ejemplocompletofx.modelo.*;
 import org.ubp.edu.ar.ejemplocompletofx.util.GeneradorComprobanteDB;
 import org.ubp.edu.ar.ejemplocompletofx.util.GeneradorComprobanteTxt;
@@ -44,6 +48,7 @@ public class EditarPedidoController extends Controller implements Initializable 
     @FXML private ComboBox<Vendedor> cmbVendedor;
     @FXML private ComboBox<Producto> cmbProducto;
     @FXML private ComboBox<MedioPago> cmbMedioPago;
+    @FXML private ComboBox<EstadoPedido> cmbEstado;
 
     private ObservableList<DetallePedido> datos = null;
     private ObservableList<Cliente> datosCmbCliente = null;
@@ -57,6 +62,13 @@ public class EditarPedidoController extends Controller implements Initializable 
         cliente = new Cliente();
         vendedor = new Vendedor();
         producto = new Producto();
+        
+        cmbEstado.setItems(FXCollections.observableArrayList(
+    new EstadoCancelado(),
+    new EstadoCompleto(),
+    new EstadoNuevo()
+        ));
+
 
         cmbMedioPago.setItems(FXCollections.observableArrayList(MedioPago.values()));
         cmbMedioPago.getSelectionModel().select(MedioPago.CONTADO);
@@ -163,6 +175,7 @@ public class EditarPedidoController extends Controller implements Initializable 
         this.datos = FXCollections.observableList(this.pedido.getDetalles());
         this.tableView.setItems(this.datos);
         this.cmbMedioPago.getSelectionModel().select(pedido.getMedioPago() != null ? pedido.getMedioPago() : MedioPago.CONTADO);
+        this.cmbEstado.getSelectionModel().select(pedido.getEstado());
         actualizarTotalConRecargo();
     }
 
@@ -243,6 +256,7 @@ public class EditarPedidoController extends Controller implements Initializable 
         this.pedido.setDetalles(this.datos);
         this.pedido.setFecha(Date.from(this.txtFecha.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         this.pedido.setMedioPago(this.cmbMedioPago.getSelectionModel().getSelectedItem());
+        this.pedido.setEstado(this.cmbEstado.getSelectionModel().getSelectedItem());
         resp = this.pedido.getNro() > -1 ? this.pedido.modificar() : this.pedido.guardar();
         if (resp) {
             this.otherCtrl.loadData();
