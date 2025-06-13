@@ -56,6 +56,12 @@ public class PedidosController extends Controller implements Initializable {
     private Button btnEliminar;
     @FXML
     private Button btnLimpiar;
+    
+    @FXML private TableColumn<Pedido, Integer> colNro;
+@FXML private TableColumn<Pedido, String> colFecha;
+@FXML private TableColumn<Pedido, String> colCliente;
+@FXML private TableColumn<Pedido, String> colEstado;
+
 
     /**
      * Initializes the controller class.
@@ -65,6 +71,7 @@ public class PedidosController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         this.modelo = FabricaModelo.fabricar("Pedido");
         this.txtBuscar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -88,20 +95,33 @@ public class PedidosController extends Controller implements Initializable {
         this.progress.setVisible(false);
     }
 
-    private void configureTable() {
-        TableColumn<Pedido, Integer> tcNro = (TableColumn<Pedido, Integer>) this.tableView.getColumns().get(0);
-        tcNro.setCellValueFactory(new PropertyValueFactory<>("nro"));
-        TableColumn<Pedido, String> tcFecha = (TableColumn<Pedido, String>) this.tableView.getColumns().get(1);
-        tcFecha.setCellValueFactory(celda -> {
-            Date fecha = celda.getValue().getFecha();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            return new SimpleStringProperty(fecha != null ? sdf.format(fecha) : "");
-        });
-        TableColumn<Pedido, String> tcCliente = (TableColumn<Pedido, String>) this.tableView.getColumns().get(2);
-        tcCliente.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(cellData.getValue().getCliente() != null ? cellData.getValue().getCliente().toString() : "");
-        });
-    }
+private void configureTable() {
+    colNro.setCellValueFactory(new PropertyValueFactory<>("nro"));
+
+    colFecha.setCellValueFactory(celda -> {
+        Date fecha = celda.getValue().getFecha();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return new SimpleStringProperty(fecha != null ? sdf.format(fecha) : "");
+    });
+
+    colCliente.setCellValueFactory(cellData ->
+        new SimpleStringProperty(
+            cellData.getValue().getCliente() != null
+                ? cellData.getValue().getCliente().toString()
+                : ""
+        )
+    );
+
+    colEstado.setCellValueFactory(cellData ->
+        new SimpleStringProperty(
+            cellData.getValue().getEstado() != null
+                ? cellData.getValue().getEstado().getNombre()
+                : "Sin estado"
+        )
+    );
+}
+
+
 
     @FXML
     private void obtenerPedidoSeleccionado(MouseEvent evt) {

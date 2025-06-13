@@ -14,6 +14,8 @@ import org.ubp.edu.ar.ejemplocompletofx.factories.FabricaDao;
 import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoStrategy;
 import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoCredito;
 import org.ubp.edu.ar.ejemplocompletofx.strategy.RecargoSinRecargo;
+import org.ubp.edu.ar.ejemplocompletofx.estado.*;
+
 
 public class Pedido extends Modelo {
 
@@ -135,4 +137,25 @@ public class Pedido extends Modelo {
         PedidoDto pedidoDto = this.mapper.map(this, PedidoDto.class);
         return this.dao.borrar(pedidoDto);
     }
+private EstadoPedido estado = new EstadoNuevo(); // por defecto
+
+public EstadoPedido getEstado() {
+    return estado;
+}
+
+public void setEstado(EstadoPedido estado) {
+    this.estado = estado;
+}
+
+public boolean puedeModificar() {
+    return estado.puedeModificar();
+}
+
+public boolean puedeCancelar() {
+    return estado.puedeCancelar();
+}
+
+public boolean puedeEmitirComprobante() {
+    return estado.puedeEmitirComprobante();
+}
 }

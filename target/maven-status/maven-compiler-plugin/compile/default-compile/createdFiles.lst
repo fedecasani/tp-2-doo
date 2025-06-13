@@ -1,3 +1,4 @@
+org/ubp/edu/ar/ejemplocompletofx/estado/EstadoCancelado.class
 org/ubp/edu/ar/ejemplocompletofx/dto/VendedorDto.class
 org/ubp/edu/ar/ejemplocompletofx/dto/ProductoDto.class
 org/ubp/edu/ar/ejemplocompletofx/controladores/EditarPedidoController.class
@@ -13,6 +14,7 @@ org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteTxt.class
 org/ubp/edu/ar/ejemplocompletofx/dao/PedidoDao.class
 org/ubp/edu/ar/ejemplocompletofx/util/ConexionDB.class
 org/ubp/edu/ar/ejemplocompletofx/dao/Dao.class
+org/ubp/edu/ar/ejemplocompletofx/estado/EstadoNuevo.class
 org/ubp/edu/ar/ejemplocompletofx/dao/ConexionSql.class
 org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoSinRecargo.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Vendedor.class
@@ -20,6 +22,7 @@ org/ubp/edu/ar/ejemplocompletofx/dto/ClienteDto.class
 org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoCredito.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Producto.class
 org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoStrategy.class
+org/ubp/edu/ar/ejemplocompletofx/estado/EstadoCompleto.class
 org/ubp/edu/ar/ejemplocompletofx/factories/FabricaDao.class
 org/ubp/edu/ar/ejemplocompletofx/dao/ClienteDao.class
 org/ubp/edu/ar/ejemplocompletofx/dto/PedidoDto.class
@@ -28,6 +31,7 @@ org/ubp/edu/ar/ejemplocompletofx/dao/ProductoDao.class
 org/ubp/edu/ar/ejemplocompletofx/factories/FabricaModelo.class
 org/ubp/edu/ar/ejemplocompletofx/dao/VendedorDao.class
 org/ubp/edu/ar/ejemplocompletofx/controladores/Controller.class
+org/ubp/edu/ar/ejemplocompletofx/estado/EstadoPedido.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/MedioPago.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Modelo.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Pedido.class

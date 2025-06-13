@@ -8,15 +8,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ubp.edu.ar.ejemplocompletofx.controladores.PedidosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ubp.edu.ar.ejemplocompletofx.controladores.PedidosController">
    <children>
-      <TableView fx:id="tableView" layoutX="12.0" layoutY="58.0" onMouseClicked="#obtenerPedidoSeleccionado" prefHeight="201.0" prefWidth="575.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.627381641922966">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Nro" />
-          <TableColumn prefWidth="130.86019897460938" text="Fecha" />
-            <TableColumn prefWidth="367.2486287352407" text="Cliente" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tableView" layoutX="12.0" layoutY="58.0" prefHeight="201.0" prefWidth="575.0">
+  <columns>
+    <TableColumn fx:id="colNro" prefWidth="75.0" text="Nro" />
+    <TableColumn fx:id="colFecha" prefWidth="130.0" text="Fecha" />
+    <TableColumn fx:id="colCliente" prefWidth="230.0" text="Cliente" />
+    <TableColumn fx:id="colEstado" prefWidth="130.0" text="Estado" />
+  </columns>
+</TableView>
       <ProgressBar fx:id="progress" layoutX="14.0" layoutY="366.0" prefHeight="20.0" prefWidth="91.0" AnchorPane.bottomAnchor="13.022406487211537" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="btnCerrar" layoutX="525.0" layoutY="365.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" AnchorPane.bottomAnchor="10.026674389537543" AnchorPane.rightAnchor="15.064018534890103" />
       <Button fx:id="btnEliminar" layoutX="445.0" layoutY="365.0" mnemonicParsing="false" onAction="#eliminarPedido" text="Eliminar" AnchorPane.bottomAnchor="10.026674389537561" AnchorPane.rightAnchor="83.07682224186806" />

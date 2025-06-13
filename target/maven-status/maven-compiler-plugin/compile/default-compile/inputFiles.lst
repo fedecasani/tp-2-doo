@@ -8,12 +8,15 @@
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dto/VendedorDto.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/factories/FabricaDao.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteTxt.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/estado/EstadoCancelado.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/DetallePedido.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/estado/EstadoCompleto.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/controladores/Controller.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/App.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoStrategy.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/factories/FabricaModelo.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/Cliente.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/estado/EstadoNuevo.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/Modelo.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/RecargoStrategy/java.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoSinRecargo.java
@@ -30,3 +33,4 @@
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dao/PedidoDao.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/singleton/ConexionDB.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/Vendedor.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/estado/EstadoPedido.java

@@ -1,8 +1,8 @@
 PEDIDO N° -1
 Fecha: 13/06/2025
 Cliente: JUAN GOMEZ
-Vendedor: Leg: 2021-05. JUANA MASLIA
-Medio de pago: DEBITO
+Vendedor: Leg: 2023-01. JORGE GOMEZ
+Medio de pago: CONTADO
 
 DETALLE:
 - Cod: 6545454. PELOTA BASQUET NRO 7 x 1.0 @ $6000.0 = $6000.0
