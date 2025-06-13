@@ -11,6 +11,7 @@ org/ubp/edu/ar/ejemplocompletofx/modelo/DetallePedido.class
 org/ubp/edu/ar/ejemplocompletofx/modelo/Pedido$1.class
 org/ubp/edu/ar/ejemplocompletofx/util/GeneradorComprobanteTxt.class
 org/ubp/edu/ar/ejemplocompletofx/dao/PedidoDao.class
+org/ubp/edu/ar/ejemplocompletofx/util/ConexionDB.class
 org/ubp/edu/ar/ejemplocompletofx/dao/Dao.class
 org/ubp/edu/ar/ejemplocompletofx/dao/ConexionSql.class
 org/ubp/edu/ar/ejemplocompletofx/strategy/RecargoSinRecargo.class

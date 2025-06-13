@@ -28,4 +28,5 @@
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dto/ClienteDto.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dao/ConexionSql.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/dao/PedidoDao.java
+/Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/singleton/ConexionDB.java
 /Users/federicocasani/Downloads/ejemploCompletoFX/src/main/java/org/ubp/edu/ar/ejemplocompletofx/modelo/Vendedor.java

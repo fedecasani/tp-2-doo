@@ -19,8 +19,8 @@ public class GeneradorComprobanteDB {
         String sql = "INSERT INTO comprobante (nroPedido, fecha, cliente, vendedor, medioPago, detalle, total, totalConRecargo) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConexionDB.getInstancia().getConexion();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
