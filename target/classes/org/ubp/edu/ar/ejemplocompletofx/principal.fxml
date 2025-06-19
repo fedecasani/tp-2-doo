@@ -13,7 +13,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Gestión">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#opcConsultarPedido" text="Pedidos">
+                  <MenuItem mnemonicParsing="false" onAction="#opcConsultarPedido" text="Ventas">
                      <accelerator>
                         <KeyCodeCombination alt="ANY" code="P" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>

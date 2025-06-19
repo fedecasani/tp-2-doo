@@ -50,7 +50,7 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private void opcConsultarPedido() {
         try {
-            App.openFXML("pedidos", "Consulta de pedidos", Modality.APPLICATION_MODAL);
+            App.openFXML("pedidos", "Consulta de ventas", Modality.APPLICATION_MODAL);
         } catch (IOException ex) {
             showAlert(Alert.AlertType.ERROR, null, "Info", ex.toString());
         }

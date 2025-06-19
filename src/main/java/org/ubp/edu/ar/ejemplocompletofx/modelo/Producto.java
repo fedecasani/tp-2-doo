@@ -85,4 +85,10 @@ public class Producto {
     public void setMapper(ModelMapper mapper) {
         this.mapper = mapper;
     }
+    public Producto(String nombre, String codBarra, float precio, float cantidad) {
+    this.nombre = nombre;
+    this.codBarra = codBarra;
+    this.precio = precio;
+    this.cantidad = cantidad;
+}
 }

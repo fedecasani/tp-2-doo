@@ -151,7 +151,7 @@ private void configureTable() {
         Pedido ped = this.tableView.getSelectionModel().getSelectedItem();
         if (ped != null) {
             try {
-                FXMLLoader loader = App.openFXML("editarPedido", "Editar pedido", Modality.APPLICATION_MODAL);
+                FXMLLoader loader = App.openFXML("editarPedido", "Editar venta", Modality.APPLICATION_MODAL);
                 EditarPedidoController controller = loader.getController();
                 controller.passData(ped, this);
             } catch (IOException ex) {
@@ -165,7 +165,7 @@ private void configureTable() {
     @FXML
     private void nuevoPedido(ActionEvent event) {
         try {
-            FXMLLoader loader = App.openFXML("editarPedido", "Nuevo pedido", Modality.APPLICATION_MODAL);
+            FXMLLoader loader = App.openFXML("editarPedido", "Nueva venta", Modality.APPLICATION_MODAL);
             EditarPedidoController controller = loader.getController();
             controller.passData(new Pedido(-1, new Date(System.currentTimeMillis()), null, null), this);
         } catch (IOException ex) {

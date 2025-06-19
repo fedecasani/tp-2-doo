@@ -24,7 +24,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("principal"), 640, 480);
         stage.setScene(scene);
         stage.setMaximized(true);
-        stage.setTitle("Sistema de gestión de pedidos");
+        stage.setTitle("Sistema de gestión de ventas");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Info");
         alert.setHeaderText("¿Seguro?");

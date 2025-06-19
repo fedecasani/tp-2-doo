@@ -1,11 +1,12 @@
 PEDIDO N° -1
 Fecha: 13/06/2025
-Cliente: MARIANA JEREZ
+Cliente: JUAN GOMEZ
 Vendedor: Leg: 2021-05. JUANA MASLIA
-Medio de pago: DEBITO
+Medio de pago: CONTADO
 
 DETALLE:
-- Cod: 7869554. PELOTA FUTBOL NRO 5 x 1.0 @ $3500.0 = $3500.0
+- Cod: 6545454. PELOTA BASQUET NRO 7 x 1.0 @ $6000.0 = $6000.0
+- Cod: 4565774. PROTECTOR BUCAL x 1.0 @ $5000.0 = $5000.0
 
-Total sin recargo: $3500.00
-Total con recargo: $3500.00
+Total sin recargo: $11000.00
+Total con recargo: $11000.00
